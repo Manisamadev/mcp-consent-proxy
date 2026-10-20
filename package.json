@@ -1,0 +1,31 @@
+{
+  "name": "mcp-consent-proxy",
+  "version": "0.1.0",
+  "description": "MCP proxy that asks for permission before tool calls and keeps an append-only record of who allowed what to which agent",
+  "type": "module",
+  "bin": {
+    "mcp-consent-proxy": "./dist/proxy.js",
+    "mcp-consent": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "proxy": "node --no-warnings dist/proxy.js",
+    "dev:proxy": "tsx src/proxy.ts",
+    "cli": "node --no-warnings dist/cli.js",
+    "dev:cli": "tsx src/cli.ts",
+    "test": "tsx test/e2e.ts"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

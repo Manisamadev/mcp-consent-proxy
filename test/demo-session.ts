@@ -1,0 +1,13 @@
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { ElicitRequestSchema } from "@modelcontextprotocol/sdk/types.js";
+const answers = ["allow_repo", "deny"];
+const c = new Client({ name: "claude-desktop", version: "2.0" }, { capabilities: { elicitation: {} } });
+c.setRequestHandler(ElicitRequestSchema, async () => ({ action: "accept", content: { decision: answers.shift()! } }));
+await c.connect(new StdioClientTransport({ command: "node", args: ["/home/claude/mcp-consent-proxy/dist/proxy.js"], env: { ...process.env, MCP_CONSENT_CONFIG: process.env.CFG! } as any }));
+const R = { owner: "octo", repo: "demo" };
+await c.callTool({ name: "get_file_contents", arguments: { ...R, path: "a" } });
+await c.callTool({ name: "create_issue", arguments: { ...R, title: "x" } });
+await c.callTool({ name: "create_issue", arguments: { ...R, title: "y" } });
+await c.callTool({ name: "merge_pull_request", arguments: { ...R, pull_number: 1 } });
+await c.close(); process.exit(0);

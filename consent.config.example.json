@@ -1,0 +1,16 @@
+{
+  "upstream": {
+    "command": "docker",
+    "args": ["run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server"],
+    "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_..." }
+  },
+  "dbPath": "~/.mcp-consent/consent.sqlite",
+  "actor": "your-name",
+  "rules": {
+    "create_issue": "write",
+    "merge_pull_request": "dangerous",
+    "delete_*": "dangerous"
+  },
+  "confirm": { "read": false, "write": true, "dangerous": true },
+  "whenNoDialog": { "read": "allow", "write": "allow", "dangerous": "deny" }
+}
