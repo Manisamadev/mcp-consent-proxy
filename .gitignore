@@ -4,3 +4,4 @@ consent.config.json
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+.cursorignore
